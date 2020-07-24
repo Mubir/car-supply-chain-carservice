@@ -24,6 +24,6 @@ public class CarController {
     @PutMapping("/{carId}")
     public ResponseEntity updateCar(@PathVariable("carId") UUID carId,@RequestBody CarDto car)
     {
-        return new ResponseEntity(HttpStatus.FOUND);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
