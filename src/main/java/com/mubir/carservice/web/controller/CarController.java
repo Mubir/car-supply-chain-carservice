@@ -3,6 +3,7 @@ package com.mubir.carservice.web.controller;
 import com.mubir.carservice.web.model.CarDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -16,13 +17,13 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity createCar(@RequestBody CarDto car)
+    public ResponseEntity createCar(@Validated @RequestBody CarDto car)
     {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PutMapping("/{carId}")
-    public ResponseEntity updateCar(@PathVariable("carId") UUID carId,@RequestBody CarDto car)
+    public ResponseEntity updateCar(@PathVariable("carId") UUID carId,@Validated @RequestBody CarDto car)
     {
         return new ResponseEntity(HttpStatus.OK);
     }
