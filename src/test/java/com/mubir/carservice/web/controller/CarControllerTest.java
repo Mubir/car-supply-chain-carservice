@@ -2,12 +2,14 @@ package com.mubir.carservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mubir.carservice.web.model.CarDto;
+import com.mubir.carservice.web.model.CarModelEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -28,7 +30,7 @@ class CarControllerTest {
 
     @Test
     void createCar() throws Exception {
-        CarDto carDto = CarDto.builder().build();
+        CarDto carDto = getMocObject();
         String carDtoJson = objectMapper.writeValueAsString(carDto);
 
         mockMvc.perform(post("/api/v1/car/")
@@ -40,7 +42,7 @@ class CarControllerTest {
     @Test
     void updateCar() throws Exception{
 
-        CarDto carDto = CarDto.builder().build();
+        CarDto carDto = getMocObject();
         String carDtoJson = objectMapper.writeValueAsString(carDto);
 
         mockMvc.perform(put("/api/v1/car/"+UUID.randomUUID().toString())
@@ -48,5 +50,15 @@ class CarControllerTest {
                 .content(carDtoJson))
                 .andExpect(status().isOk());
 
+    }
+
+    CarDto getMocObject()
+    {
+        return CarDto.builder()
+                .carName("abcc")
+                .carModel(CarModelEnum.BMW)
+                .upc(123L)
+                .price(new BigDecimal("1234"))
+                .build();
     }
 }
