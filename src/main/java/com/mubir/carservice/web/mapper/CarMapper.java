@@ -6,6 +6,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(uses = {DateMapper.class})
 public interface CarMapper {
-    CarDto CarToCarDto(Car car);
-    Car CarDtoToCar(CarDto carDto);
+    CarDto carToCarDto(Car car);
+    Car carDtoToCar(CarDto carDto);
 }
