@@ -9,25 +9,30 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+
 @RequiredArgsConstructor
-@RestController
 @RequestMapping("/api/v1/car")
+@RestController
 public class CarController {
+
     private final CarService carService;
     @GetMapping("/{carId}")
     public ResponseEntity<CarDto> getCarById(@PathVariable("carId") UUID carId){
         return new ResponseEntity<>(carService.getById(carId), HttpStatus.OK);
+       // return new ResponseEntity<>(CarDto.builder().build(),HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity createCar(@Validated @RequestBody CarDto carDto)
     {
         return new ResponseEntity(carService.saveNewCar(carDto),HttpStatus.CREATED);
+        //return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{carId}")
     public ResponseEntity updateCar(@PathVariable("carId") UUID carId,@Validated @RequestBody CarDto carDto)
     {
         return new ResponseEntity(carService.updateCar(carId,carDto),HttpStatus.NO_CONTENT);
+       // return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

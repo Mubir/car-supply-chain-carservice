@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 @Component
 public class CarLoader implements CommandLineRunner
 {
+    public static final String CAR_1_UPC = "0631234200036";
+    public static final String CAR_2_UPC = "0631234300019";
+    public static final String CAR_3_UPC = "0083783375213";
     private final CarRepository carRepository;
 
     public CarLoader(CarRepository carRepository) {
@@ -27,17 +30,17 @@ public class CarLoader implements CommandLineRunner
             carRepository.save(Car.builder()
                     .carModel("xzy")
                     .carName("BMW")
-                    .upc(337010000001L)
+                    .upc(CAR_1_UPC)
                     .price(new BigDecimal("50000"))
                     .build());
 
             carRepository.save(Car.builder()
                     .carModel("xoxo")
                     .carName("TOYOTA")
-                    .upc(33701000000L)
+                    .upc(CAR_2_UPC)
                     .price(new BigDecimal("50000"))
                     .build());
         }
-        System.out.println(" $$$$$$$$$$$ "+carRepository.count());
+        System.out.println(" $$$$$$$$$$$ "+carRepository.findAll().toString());
     }
 }

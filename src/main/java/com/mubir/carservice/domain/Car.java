@@ -31,7 +31,7 @@ public class Car {
     private String carName;
     private String carModel;
     @Column(unique = true)
-    private Long upc;
+    private String upc;
     private BigDecimal price;
     private Integer minOnHand;
     private Integer quantityPreOrder;
