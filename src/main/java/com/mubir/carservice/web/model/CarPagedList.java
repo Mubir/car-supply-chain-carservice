@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public class CarPagedList  extends PageImpl {
+public class CarPagedList extends PageImpl {
     public CarPagedList(List content, Pageable pageable, long total) {
         super(content, pageable, total);
     }
