@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
+//@Component
 public class CarLoader implements CommandLineRunner
 {
     public static final String CAR_1_UPC = "0631234200036";
