@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,7 +32,7 @@ class CarControllerTest {
 
     @Test
     void getCarById() throws Exception {
-        given(carService.getById(any())).willReturn(getMocObject());
+        given(carService.getById(any(),anyBoolean())).willReturn(getMocObject());
         mockMvc.perform(get("/api/v1/car/"+ UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
 
@@ -42,7 +43,7 @@ class CarControllerTest {
 
         CarDto carDto = getMocObject();
         String carDtoJson = objectMapper.writeValueAsString(carDto);
-        given(carService.getById(any())).willReturn(getMocObject());
+        given(carService.getById(any(),anyBoolean())).willReturn(getMocObject());
         mockMvc.perform(post("/api/v1/car/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(carDtoJson))
@@ -51,7 +52,7 @@ class CarControllerTest {
 
     @Test
     void updateCar() throws Exception{
-        given(carService.getById(any())).willReturn(getMocObject());
+        given(carService.getById(any(),anyBoolean())).willReturn(getMocObject());
         CarDto carDto = getMocObject();
         String carDtoJson = objectMapper.writeValueAsString(carDto);
 

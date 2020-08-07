@@ -23,8 +23,11 @@ public class CarServiceImpl implements CarService {
     public final CarMapper carMapper;
 
     @Override
-    public CarDto getById(UUID carId) {
-        return carMapper.carToCarDto(carRepository.findById(carId).orElseThrow(NotFoundException::new));
+    public CarDto getById(UUID carId,Boolean inventoryInHand) {
+        if(inventoryInHand)
+        {return carMapper.carDtoWithInventory(carRepository.findById(carId).orElseThrow(NotFoundException::new));}else {
+            return carMapper.carToCarDto(carRepository.findById(carId).orElseThrow(NotFoundException::new));
+        }
     }
 
     @Override
@@ -44,7 +47,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarPagedList listCars(String carName, CarModelEnum carModelEnum, PageRequest pageRequest) {
+    public CarPagedList listCars(String carName, CarModelEnum carModelEnum,
+                                 PageRequest pageRequest,Boolean inventoryInHand) {
         CarPagedList carPagedList;
         Page<Car> carPage;
         if (!StringUtils.isEmpty(carModelEnum) && !StringUtils.isEmpty(carName)) {
@@ -56,10 +60,18 @@ public class CarServiceImpl implements CarService {
         } else {
             carPage = carRepository.findAll(pageRequest);
         }
-        carPagedList = new CarPagedList(carPage.getContent()
-                .stream().map(carMapper::carToCarDto).collect(Collectors.toList()),
-                PageRequest.of(carPage.getPageable().getPageNumber(), carPage.getPageable().getPageSize()),
-                carPage.getTotalElements());
+        if(inventoryInHand) {
+            carPagedList = new CarPagedList(carPage.getContent()
+                    .stream().map(carMapper::carDtoWithInventory).collect(Collectors.toList()),
+                    PageRequest.of(carPage.getPageable().getPageNumber(), carPage.getPageable().getPageSize()),
+                    carPage.getTotalElements());
+        }else
+        {
+            carPagedList = new CarPagedList(carPage.getContent()
+                    .stream().map(carMapper::carToCarDto).collect(Collectors.toList()),
+                    PageRequest.of(carPage.getPageable().getPageNumber(), carPage.getPageable().getPageSize()),
+                    carPage.getTotalElements());
+        }
 
         return carPagedList;
     }

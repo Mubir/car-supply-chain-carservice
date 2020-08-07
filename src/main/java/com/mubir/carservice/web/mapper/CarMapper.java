@@ -9,4 +9,5 @@ import org.mapstruct.Mapper;
 public interface CarMapper {
     CarDto carToCarDto(Car car);
     Car carDtoToCar(CarDto carDto);
+    CarDto carDtoWithInventory(Car car);
 }

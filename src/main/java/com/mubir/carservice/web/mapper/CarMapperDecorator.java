@@ -19,13 +19,19 @@ public class CarMapperDecorator implements CarMapper{
 
     @Override
     public CarDto carToCarDto(Car car) {
-        CarDto dto = carMapper.carToCarDto(car);
-        dto.setQuantityOnHand(carInventoryService.getOnhandInventory(car.getId()));
-        return dto;
+
+        return carMapper.carToCarDto(car);
     }
 
     @Override
     public Car carDtoToCar(CarDto carDto) {
         return carMapper.carDtoToCar(carDto);
+    }
+
+    @Override
+    public CarDto carDtoWithInventory(Car car) {
+        CarDto dto = carMapper.carToCarDto(car);
+        dto.setQuantityOnHand(carInventoryService.getOnhandInventory(car.getId()));
+        return dto;
     }
 }

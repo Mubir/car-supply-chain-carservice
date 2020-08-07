@@ -21,8 +21,17 @@ public class CarController {
     private static final Integer DEFAULT_PAGE_SIZE = 25;
     private final CarService carService;
     @GetMapping("/{carId}")
-    public ResponseEntity<CarDto> getCarById(@PathVariable("carId") UUID carId){
-        return new ResponseEntity<>(carService.getById(carId), HttpStatus.OK);
+    public ResponseEntity<CarDto> getCarById(@PathVariable("carId") UUID carId,
+                                             @RequestParam(value = "invetoryInHand",required = false) Boolean inventoryInHand){
+
+        if(inventoryInHand == null)
+        {
+            inventoryInHand = false;
+        }
+
+
+            return new ResponseEntity<>(carService.getById(carId,inventoryInHand), HttpStatus.OK);
+
        // return new ResponseEntity<>(CarDto.builder().build(),HttpStatus.OK);
     }
 
@@ -44,8 +53,13 @@ public class CarController {
     public ResponseEntity<CarPagedList> listCars(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                  @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                  @RequestParam(value = "carName", required = false) String carName,
-                                                 @RequestParam(value = "carModel", required = false) CarModelEnum carModel)
+                                                 @RequestParam(value = "carModel", required = false) CarModelEnum carModel,
+                                                 @RequestParam(value = "invetoryInHand",required = false) Boolean inventoryInHand)
     {
+        if(inventoryInHand == null)
+        {
+            inventoryInHand = false;
+        }
         if (pageNumber == null || pageNumber < 0){
             pageNumber = DEFAULT_PAGE_NUMBER;
         }
@@ -53,7 +67,7 @@ public class CarController {
         if (pageSize == null || pageSize < 1) {
             pageSize = DEFAULT_PAGE_SIZE;
         }
-        CarPagedList carPagedList = carService.listCars(carName,carModel, PageRequest.of(pageNumber,pageSize));
+        CarPagedList carPagedList = carService.listCars(carName,carModel, PageRequest.of(pageNumber,pageSize),inventoryInHand);
         return new ResponseEntity<>(carPagedList,HttpStatus.OK);
     }
 
