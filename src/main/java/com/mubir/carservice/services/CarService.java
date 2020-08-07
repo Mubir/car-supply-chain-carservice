@@ -13,4 +13,5 @@ public interface CarService {
     CarDto updateCar(UUID carId,CarDto carDto);
     CarPagedList listCars(String carName, CarModelEnum carModelEnum,
                           PageRequest pageRequest,Boolean inventoryInHand);
+    CarDto getByUpc(String upc);
 }

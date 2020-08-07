@@ -12,4 +12,5 @@ public interface CarRepository extends PagingAndSortingRepository<Car, UUID> {
     Page<Car> findAllByCarName(String carName, Pageable pageable);
     Page<Car> findAllByCarModel(CarModelEnum carModel, Pageable pageable);
     Page<Car> findAllByCarNameAndCarModel(String carName,CarModelEnum carModel, Pageable pageable);
+    Car findByUpc(String upc);
 }

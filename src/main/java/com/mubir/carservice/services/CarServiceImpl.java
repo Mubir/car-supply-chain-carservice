@@ -78,4 +78,10 @@ public class CarServiceImpl implements CarService {
 
         return carPagedList;
     }
+
+    @Override
+    @Cacheable(cacheNames = "carUpcCache")
+    public CarDto getByUpc(String upc) {
+        return carMapper.carToCarDto(carRepository.findByUpc(upc));
+    }
 }
