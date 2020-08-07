@@ -7,9 +7,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CarPagedList extends PageImpl {
+public class CarPagedList extends PageImpl<CarDto> implements Serializable {
+    static final long serialVersionUID= 8775945117656316501L;
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public CarPagedList(@JsonProperty("content") List<CarDto> content,
                         @JsonProperty("number") int number,

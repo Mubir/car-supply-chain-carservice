@@ -8,6 +8,7 @@ import com.mubir.carservice.web.model.CarDto;
 import com.mubir.carservice.web.model.CarModelEnum;
 import com.mubir.carservice.web.model.CarPagedList;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class CarServiceImpl implements CarService {
     public final CarMapper carMapper;
 
     @Override
+    @Cacheable(cacheNames = "carCache",key = "#carId",condition = "#inventoryInHand==false")
     public CarDto getById(UUID carId,Boolean inventoryInHand) {
         if(inventoryInHand)
         {return carMapper.carDtoWithInventory(carRepository.findById(carId).orElseThrow(NotFoundException::new));}else {
@@ -47,6 +49,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Cacheable(cacheNames = "carListCache",condition = "#inventoryInHand==false")
     public CarPagedList listCars(String carName, CarModelEnum carModelEnum,
                                  PageRequest pageRequest,Boolean inventoryInHand) {
         CarPagedList carPagedList;
