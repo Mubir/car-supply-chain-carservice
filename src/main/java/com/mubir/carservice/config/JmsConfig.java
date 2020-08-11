@@ -8,7 +8,7 @@ import org.springframework.jms.support.converter.MessageType;
 
 @Configuration
 public class JmsConfig {
-    public static final String MY_QUEUE = "my-hello-world";
+    public static final String DEV_CAR_BUILD = "dev-car-build";
     @Bean
     public MessageConverter jacksonJmsMessageConverter()
     {
