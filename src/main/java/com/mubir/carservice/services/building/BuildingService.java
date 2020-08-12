@@ -1,8 +1,8 @@
-package com.mubir.carservice.services;
+package com.mubir.carservice.services.building;
 
 import com.mubir.carservice.config.JmsConfig;
 import com.mubir.carservice.domain.Car;
-import com.mubir.carservice.events.CarBuildEvent;
+import com.mubir.common.events.BuildCarEvent;
 import com.mubir.carservice.repositories.CarRepository;
 import com.mubir.carservice.services.inventory.CarInventoryService;
 import com.mubir.carservice.web.mapper.CarMapper;
@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CarBuildingService {
+public class BuildingService {
 
     private final CarRepository carRepository;
     private final CarInventoryService carInventoryService;
@@ -31,12 +31,13 @@ public class CarBuildingService {
         cars.forEach( car-> {
             Integer amount = carInventoryService.getOnhandInventory(car.getId());
 
-            log.warn("Min :"+car.getMinOnHand());
-            log.warn("inv "+amount);
+            log.warn("needed :"+car.getMinOnHand());
+            log.warn("available "+amount);
 
             if(car.getMinOnHand()>= amount)
             {
-                jmsTemplate.convertAndSend(JmsConfig.DEV_CAR_BUILD,new CarBuildEvent(carMapper.carToCarDto(car)));
+                log.warn("************* builing ******************");
+                jmsTemplate.convertAndSend(JmsConfig.DEV_CAR_BUILD,new BuildCarEvent(carMapper.carToCarDto(car)));
             }
         });
     }

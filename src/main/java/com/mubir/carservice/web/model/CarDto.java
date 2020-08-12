@@ -34,6 +34,7 @@ public class CarDto implements Serializable {
     @NotBlank
     private String carName;
     @NotNull
+    //private String carModel;
     private CarModelEnum carModel;
     @NotNull
     private String upc;

@@ -50,13 +50,25 @@ public class CarLoader implements CommandLineRunner
                     .carName("S-cube")
                     .upc(CAR_3_UPC)
                     .price(new BigDecimal("50000"))
-                    .minOnHand(3)
+                    .minOnHand(99)
                     .quantityPreOrder(6)
                     .build();
 
         carRepository.save(c1);
         carRepository.save(c2);
         carRepository.save(c3);
+
+       /* Car c3=Car.builder()
+                .carModel("CarModelEnum.BMW.name()")
+                .carName("S-cube")
+                .upc(CAR_3_UPC)
+                .price(new BigDecimal("50000"))
+                .minOnHand(3)
+                .quantityPreOrder(6)
+                .build();
+
+        carRepository.save(c3);
+        */
 
         System.out.println(" $$$$$$$$$$$ "+carRepository.findAll().toString());
     }
