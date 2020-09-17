@@ -1,5 +1,6 @@
 ## car-supply-chain-carservice
 
+### Project progress
 <span class="Progress">
   <span class="Progress-value bg-green" style="width: 70%;"></span>
 </span>
